@@ -1,0 +1,27 @@
+{
+  "name": "pull-request-aggregator",
+  "version": "1.0.0",
+  "description": "Aggregate pull-requests from different repositories",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sylvainar/pull-request-aggregator.git"
+  },
+  "author": "Sylvain Arnouts (sylvainar)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sylvainar/pull-request-aggregator/issues"
+  },
+  "homepage": "https://github.com/sylvainar/pull-request-aggregator#readme",
+  "dependencies": {
+    "superagent": "^5.1.0",
+    "url-join": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.8",
+    "typescript": "^3.7.2"
+  }
+}
