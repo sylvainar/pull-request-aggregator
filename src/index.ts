@@ -1,8 +1,12 @@
-import * as Github from './backends/Github';
-import * as Gitlab from './backends/Gitlab';
-import config from "./../.config.js";
+import { loadConfig } from "./services/config";
+import { fetchData } from "./services/providers";
 
-Gitlab
-    .getPullRequests(config.repositories[1])
+const main = async ():Promise<IRepository[]> => {
+  const config = await loadConfig();
+
+  return fetchData(config);
+};
+
+main()
     .then(console.log)
     .catch(console.error);

@@ -1,3 +1,7 @@
+interface IConfig {
+    repositories: IRepositoryConfig[],
+}
+
 interface IProvider {
     name: string,
     options: any,
