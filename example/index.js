@@ -1,3 +1,4 @@
+const util = require('util');
 const pullRequestAggregator = require('../dist').default;
 
 const config = {
@@ -30,5 +31,7 @@ const config = {
 };
 
 pullRequestAggregator(config)
-    .then(console.log)
+    .then(result => {
+        console.log(util.inspect(result, false, null, true))
+    })
     .catch(console.error);
