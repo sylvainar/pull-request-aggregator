@@ -2,11 +2,13 @@
   "name": "pull-request-aggregator",
   "version": "1.0.0",
   "description": "Aggregate pull-requests from different repositories",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "run-example": "node example/index.js",
     "dev": "tsc --watch",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "clean": "rm -Rf dist/",
+    "prepare": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
