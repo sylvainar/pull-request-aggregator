@@ -4,7 +4,9 @@
   "description": "Aggregate pull-requests from different repositories",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run-example": "node example/index.js",
+    "dev": "tsc --watch",
+    "build": "tsc --build"
   },
   "repository": {
     "type": "git",

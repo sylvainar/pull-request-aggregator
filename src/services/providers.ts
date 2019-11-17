@@ -1,18 +1,22 @@
-import GithubProvider from '../providers/GithubRepository';
-import GitlabProvider from '../providers/GitlabRepository';
+import GithubProvider from '../providers/repositories/GithubRepository';
+import GitlabProvider from '../providers/repositories/GitlabRepository';
 
-const getRepository = (repositoryConfig:IRepositoryConfig) => {
-    switch (repositoryConfig.provider.name) {
-        case 'gitlab':
-            return new GitlabProvider(repositoryConfig);
-        case 'github':
-            return new GithubProvider(repositoryConfig);
-        default:
-            throw new Error(`No provider for ${repositoryConfig.provider.name}`);
+const Providers = [
+    GithubProvider,
+    GitlabProvider,
+];
+
+const getRepository = (repositoryConfig:RepositoryConfig) => {
+    const ApplicableProvider = Providers.find(Provider => Provider.repositoryId === repositoryConfig.provider.name);
+
+    if (!ApplicableProvider) {
+        throw new Error(`No provider for ${repositoryConfig.provider.name}`);
     }
+
+    return new ApplicableProvider(repositoryConfig);
 };
 
-export const fetchData = async (config:IConfig):Promise<IRepository[]> => Promise.all(
+export const fetchData = async (config:Config):Promise<Repository[]> => Promise.all(
     config.repositories.map(async repositoryConfig => {
         const repository = getRepository(repositoryConfig);
 

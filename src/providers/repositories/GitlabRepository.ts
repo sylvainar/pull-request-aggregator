@@ -1,11 +1,13 @@
 import urlJoin from 'url-join';
-import agent from '../services/agent';
-import ProviderRepository from '../types/ProviderRepository';
+import agent from '../../services/agent';
+import ProviderRepository from '../ProviderRepository';
 
 const GITLAB_URL = 'https://gitlab.com';
 const API_ROOT = '/api/v4/';
 
 export default class GitlabRepository extends ProviderRepository {
+    static repositoryId = 'gitlab';
+
     makeApiUrl = ():string => urlJoin(this.provider.options?.gitlabHost || GITLAB_URL, API_ROOT);
 
     makeRepositoryId(providerId: string): string {
@@ -13,35 +15,35 @@ export default class GitlabRepository extends ProviderRepository {
         return super.makeRepositoryId(`${this.provider.options?.gitlabHost || ''}${providerId}`);
     }
 
-    async getRepository(): Promise<IRepository> {
+    async getRepository(): Promise<Repository> {
         const apiUrl = this.makeApiUrl();
 
         const { body } = await agent
             .set('User-Agent', 'Pull-Request-Aggregator')
             .get(urlJoin(apiUrl, '/projects', encodeURIComponent(this.path)));
 
-        return <IRepository> {
+        return <Repository> {
             id: this.makeRepositoryId(body.id),
             name: body.name,
-            namespace: this.namespace,
+            metadata: this.metadata,
             url: body.web_url,
             updatedAt: body.last_activity_at,
         }
     }
 
-    async getPullRequests(): Promise<IPullRequest[]> {
+    async getPullRequests(): Promise<PullRequest[]> {
         const apiUrl = this.makeApiUrl();
 
         const { body: pulls } = await agent
             .set('User-Agent', 'Pull-Request-Aggregator')
             .get(urlJoin(apiUrl, '/projects', encodeURIComponent(this.path), '/merge_requests?state=opened'));
 
-        return pulls.map((pull: any) => (<IPullRequest>{
+        return pulls.map((pull: any) => (<PullRequest>{
             id: pull.id,
             url: pull.web_url,
             title: pull.title,
             labels: pull.labels.map((label: any) => {
-                return (<ILabel>{
+                return (<Label>{
                     id: label,
                     color: undefined,
                     name: label,
