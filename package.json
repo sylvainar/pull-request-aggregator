@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "run-example": "node example/index.js",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "dev": "tsc --watch",
     "build": "tsc --build",
     "clean": "rm -Rf dist/",
@@ -28,6 +30,10 @@
     "@types/node": "^12.12.8",
     "@types/superagent": "^4.1.4",
     "@types/url-join": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-typescript": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
     "typescript": "^3.7.2"
   }
 }

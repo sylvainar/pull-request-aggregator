@@ -1,3 +1,5 @@
+import { Config } from '../types';
+
 /**
  * Lint config.
  *
@@ -5,11 +7,11 @@
  * @returns {string[]} - Errors.
  */
 export const lintConfig = (config:Config):string[] => {
-    const errors = [];
+  const errors = [];
 
-    if (!config.repositories) {
-        errors.push('Missing repositories list.');
-    }
+  if (!config.repositories) {
+    errors.push('Missing repositories list.');
+  }
 
-    return errors;
+  return errors;
 };
