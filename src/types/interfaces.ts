@@ -16,6 +16,7 @@ interface IRepositoryConfig {
 interface IRepository {
     id: string,
     name: string,
+    namespace: string,
     url: string,
     updatedAt: Date,
     pulls: IPullRequest[],

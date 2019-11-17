@@ -1,3 +1,5 @@
-const superagent = require('superagent');
+import superagent from 'superagent';
 
-module.exports = superagent.agent();
+const agent = superagent.agent();
+
+export default agent;

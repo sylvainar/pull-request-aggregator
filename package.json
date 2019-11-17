@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.8",
+    "@types/superagent": "^4.1.4",
+    "@types/url-join": "^4.0.0",
     "typescript": "^3.7.2"
   }
 }
