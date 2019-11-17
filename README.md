@@ -1,5 +1,7 @@
 # Pull Request Aggregator
 
+[![npm version](https://badge.fury.io/js/pull-request-aggregator.svg)](https://badge.fury.io/js/pull-request-aggregator)
+
 The goal of this library is to aggregate pull-requests from different
 projects, that can be on different websites (Gitlab, Github, self-hosted
 Gitlab, BitBucket...) in order to build dashboards, CLI-tool, IOT project,
