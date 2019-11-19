@@ -46,4 +46,4 @@ pullRequestAggregator(config)
 
 returns:
 
-![return](docs/example.png)
+![return](.readme/example.png)

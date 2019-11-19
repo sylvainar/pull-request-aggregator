@@ -1,6 +1,16 @@
 import {
-  Provider, PullRequest, PullRequestReview, Repository, RepositoryConfig, RepositoryMetadata,
+  Constructor,
+  Provider,
+  PullRequest,
+  PullRequestReview,
+  Repository,
+  RepositoryConfig,
+  RepositoryMetadata,
 } from '../types';
+
+export interface ProvidersDictionary {
+  [key: string]: Constructor<ProviderRepository>,
+}
 
 abstract class ProviderRepository {
   provider: Provider;
@@ -25,9 +35,9 @@ abstract class ProviderRepository {
     return `${this.provider.name}-${providerId}`;
   }
 
-  abstract getRepository (repository:RepositoryConfig):Promise<Repository>;
+  abstract getRepository ():Promise<Repository>;
 
-  abstract getPullRequests (repository:RepositoryConfig):Promise<PullRequest[]>;
+  abstract getPullRequests ():Promise<PullRequest[]>;
 
   abstract getPullRequestReviews (iid:number): Promise<PullRequestReview[]>;
 }

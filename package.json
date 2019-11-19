@@ -4,7 +4,7 @@
   "description": "Aggregate pull-requests from different repositories",
   "main": "dist/index.js",
   "scripts": {
-    "run-example": "node example/index.js",
+    "run-sample": "node samples/index.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "dev": "tsc --watch",
