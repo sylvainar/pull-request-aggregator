@@ -4,8 +4,15 @@ export interface Config {
   repositories: RepositoryConfig[],
 }
 
+export interface ProviderAuth {
+  // Depend on provider.
+  // In your provider, you have to extend from
+  // this interface, with the keys you need.
+}
+
 export interface Provider {
   name: string,
+  auth?: ProviderAuth,
   options: any,
 }
 

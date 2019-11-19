@@ -1,3 +1,4 @@
+import { SuperAgentStatic } from 'superagent';
 import {
   Constructor,
   Provider,
@@ -19,7 +20,9 @@ abstract class ProviderRepository {
 
   path: string;
 
-  constructor(repository:RepositoryConfig) {
+  agent: SuperAgentStatic;
+
+  protected constructor(repository:RepositoryConfig) {
     this.provider = repository.provider;
     this.metadata = repository.metadata;
     this.path = repository.path;

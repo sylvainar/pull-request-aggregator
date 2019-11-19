@@ -10,7 +10,14 @@ const config = {
         // The provider.
         name: 'github',
 
-        // More options related to the provider (auth, config...)
+        // Auth if needed.
+
+        // auth: {
+        //   username: 'sylvainar',
+        //   token: 'myGithubPersonalAccessToken',
+        // },
+
+        // More options related to the provider
       },
       metadata: {
         // You'll get those back in the response, so put everything
@@ -22,6 +29,12 @@ const config = {
       path: 'fdroid/fdroidclient',
       provider: {
         name: 'gitlab',
+
+        // Auth if needed.
+
+        // auth: {
+        //   privateToken: 'myGitlabToken',
+        // },
       },
       metadata: {
         namespace: 'Perso/hello',

@@ -1,9 +1,16 @@
 import urlJoin from 'url-join';
-import agent from '../../services/agent';
+
 import ProviderRepository from '../ProviderRepository';
 import {
-  Repository, PullRequestReviewStatus, PullRequest, PullRequestReview, Label,
+  Repository,
+  PullRequestReviewStatus,
+  PullRequest,
+  PullRequestReview,
+  Label,
+  RepositoryConfig,
+  ProviderAuth,
 } from '../../types';
+import { makeDefaultAgent } from '../../services/agent';
 
 const API_ROOT = 'https://api.github.com/';
 
@@ -18,12 +25,35 @@ const evaluateStatus = (status: string):PullRequestReviewStatus => {
   }
 };
 
+interface GithubAuth extends ProviderAuth {
+  username: string,
+  token: string,
+}
+
+const makeAgent = (repositoryConfig:RepositoryConfig) => {
+  const agent = makeDefaultAgent();
+
+  agent.set('User-Agent', 'Pull-Request-Aggregator');
+
+  if (repositoryConfig.provider.auth) {
+    const { username, token } = <GithubAuth> repositoryConfig.provider.auth;
+    agent.auth(username, token);
+  }
+
+  return agent;
+};
+
 export default class GithubRepository extends ProviderRepository {
   static repositoryId = 'github';
 
+  constructor(repositoryConfig:RepositoryConfig) {
+    super(repositoryConfig);
+
+    this.agent = makeAgent(repositoryConfig);
+  }
+
   async getRepository(): Promise<Repository> {
-    const { body } = await agent
-      .set('User-Agent', 'Pull-Request-Aggregator')
+    const { body } = await this.agent
       .get(urlJoin(API_ROOT, 'repos', this.path));
 
     return <Repository> {
@@ -36,8 +66,7 @@ export default class GithubRepository extends ProviderRepository {
   }
 
   async getPullRequests(): Promise<PullRequest[]> {
-    const { body: pulls } = await agent
-      .set('User-Agent', 'Pull-Request-Aggregator')
+    const { body: pulls } = await this.agent
       .get(urlJoin(API_ROOT, 'repos', this.path, 'pulls'));
 
     const promises = pulls.map(async (pull: any) => {
@@ -61,8 +90,7 @@ export default class GithubRepository extends ProviderRepository {
   }
 
   async getPullRequestReviews(prNumber:number): Promise<PullRequestReview[]> {
-    const { body: reviews } = await agent
-      .set('User-Agent', 'Pull-Request-Aggregator')
+    const { body: reviews } = await this.agent
       .get(urlJoin(API_ROOT, 'repos', this.path, 'pulls', prNumber.toString(), 'reviews'));
 
     return reviews.map((review: any) => (<PullRequestReview>{
