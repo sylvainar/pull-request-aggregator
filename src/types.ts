@@ -40,8 +40,11 @@ export interface PullRequest {
   id: string,
   url: string,
   title: string,
+  author: string,
   labels: Label[],
   reviews: PullRequestReview[],
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 export interface Label {

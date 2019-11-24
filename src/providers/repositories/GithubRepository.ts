@@ -83,6 +83,8 @@ export default class GithubRepository extends ProviderRepository {
           name: label.name,
         })),
         reviews,
+        createdAt: pull.created_at,
+        updatedAt: pull.updated_at,
       });
     });
 

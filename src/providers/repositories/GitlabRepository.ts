@@ -77,12 +77,15 @@ export default class GitlabRepository extends ProviderRepository {
         id: pull.id,
         url: pull.web_url,
         title: pull.title,
+        author: pull.author.username,
         labels: pull.labels.map((label: any) => (<Label>{
           id: label,
           color: undefined,
           name: label,
         })),
         reviews,
+        createdAt: pull.created_at,
+        updatedAt: pull.updated_at,
       });
     });
 
